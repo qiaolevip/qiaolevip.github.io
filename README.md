@@ -1,4 +1,4 @@
-# qiaolevip.github.io Online Blog
+# [qiaolevip.github.io](http://qiaolevip.github.io) Online Blog
 This is my qiaole personal homepage on github.
 
 -------------
@@ -18,11 +18,11 @@ This is my qiaole personal homepage on github.
 ## Technic Do I Have ##
  Technic    | Qualification| Ages 
 :----------:|:------------:|:------------:
- `js`       |   Good       |    5 Years     
- `css`      |   Good       |    5 Years    
- `html`     |   Good       |    5 Years     
- `jQuery`   |   Good       |    4 Years      
- `AngularJs`|   Good       |    2 Years 
+ `js`       |   Good       |    5 Years
+ `css`      |   Good       |    5 Years
+ `html`     |   Good       |    5 Years
+ `jQuery`   |   Good       |    4 Years
+ `AngularJs`|   Good       |    2 Years
  `Less`     |   Good       |    2 Years
  `NodeJs`   |   Good       |    2 Years
  `Gulp`     |   Normal     |    1 Years

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="footballApp">
+  <meta charset="UTF-8">
+  <title>2015年中超联赛赛程表</title>
+  <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css"/>
+  <style type="text/css">
+    a, a:visited {
+      color: #fff;
+    }
+    a:hover {
+      color: chartreuse;
+    }
+    .hover-effect {
+      cursor: pointer;
+    }
+    .main-container .jumbotron {
+      padding: 5px 0 5px 50px;
+      margin-bottom: 15px;
+    }
+    .main-container .order-label {
+      display: inline-block;
+      width: 50px;
+      height: 70px;
+      line-height: 70px;
+      background: #f74c5f;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 20px;
+      text-align: center;
+      margin: 18px;
+    }
+    .main-container .order-list li {
+      padding: 6px 14px;
+    }
+    .main-container .order-list li a {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      padding: 0;
+      background: #e5e5e5;
+      font-size: 20px;
+      color: #333;
+    }
+    .main-container .order-list li a:hover {
+      background: #f74c5f;
+      color: #fff;
+    }
+    .main-container .order-list li a.active {
+      background: #f74c5f;
+      color: #fff;
+    }
+    .main-container .match-vs {
+      margin: 10px 0 15px 0;
+      padding: 0 7px;
+    }
+    .main-container .match-vs .match-area {
+      padding: 20px 0;
+      margin-bottom: 0;
+      background: url(grass-bg.png);
+    }
+    .main-container .match-vs .date-time {
+      font-size: 18px;
+      color: #fff;
+    }
+    .main-container .match-vs .team-score {
+      font-size: 20px;
+      color: #fff;
+      margin: 6px 0;
+    }
+    .main-container .match-vs .team-score .reset-padding {
+      padding: 1px;
+    }
+    .main-container .match-vs .team-score .vs-scope {
+      margin-top: 10px;
+    }
+    .main-container .match-vs .news-link {
+      margin-top: 14px;
+    }
+    .main-container .match-vs .news-link a {
+      font-size: 16px;
+    }
+    .main-container .match-vs .news-link span {
+      font-size: 16px;
+      color: aliceblue;
+    }
+    .main-container .match-vs .news-link a.bit-margin {
+      margin: 0 5px;
+    }
+    .main-container .csl-list-container .choose-area {
+      background-color: bisque;
+    }
+    .main-container .date-list li {
+      padding: 3px;
+    }
+    .main-container .team-list li {
+      width: 12.5%;
+      padding: 5px 8px;
+    }
+    .main-container .team-list li .label {
+      display: block;
+      padding: 15px 20px;
+      font-size: 100%;
+    }
+    .filter-group {
+      position: fixed;
+      right: 0;
+      top: 200px;
+      width: 150px;
+      background: url(grass-bg.png);
+      font-size: 18px;
+      padding: 15px;
+    }
+    .filter-group div {
+      margin: 5px auto;
+    }
+  </style>
+</head>
+<body ng-controller="MainCtrl">
+  <div class="filter-group text-center">
+    <div><a href="#matchTeam" ng-bind="uniqueTeam.length + '支中超球队'"></a></div>
+    <div><a href="#cslList" ng-bind="match2015Data.length + '场比赛次'"></a></div>
+    <div><a href="#matchRound">30轮比赛轮次</a></div>
+    <div><a href="#matchDate" ng-bind="uniqueDate.length + '天比赛日期'"></a></div>
+    <div><a href="#matchCity" ng-bind="uniqueMatchCity.length + '个比赛城市'"></a></div>
+    <div><a href="#matchSituation" ng-bind="(uniqueSituation.length+1) + '个比赛球场'"></a></div>
+  </div>
+  <div class="container main-container">
+    <div class="jumbotron">
+      <h1>2015年中超联赛赛程表</h1>
+    </div>
+    <div class="row" id="matchRound">
+      <div class="col-xs-1">
+        <span class="order-label">轮次</span>
+      </div>
+      <ul class="col-xs-11 list-unstyled list-inline order-list">
+        <li ng-repeat="i in getNumber(30) track by $index" data-toggle="tooltip" data-placement="top" title="{{'第' + ($index + 1) + '轮共有' + (match2015Data | filter: {Round: $index + 1} : true).length + '次赛事'}}">
+          <a href="" class="btn btn-default" ng-bind="$index + 1" ng-click="getMatchList($index + 1)" ng-class="{'active': curMatchTime == $index + 1}"></a>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-md-3 text-center match-vs" ng-repeat="v in cslMatchList">
+        <div class="thumbnail match-area">
+          <div class="row date-time">
+            <span class="hover-effect" ng-bind="v.date" ng-click="$parent.chooseTeamInfo = v.date"></span>
+            <span ng-bind="getWeekName(v.date)"></span>
+            <span class="hover-effect" ng-bind="v.time" ng-click="$parent.chooseTeamInfo = v.time"></span>
+          </div>
+          <div class="row date-time hover-effect" ng-bind="v.MatchCity + ' ' + v.Situation" ng-click="$parent.chooseTeamInfo = v.Situation"></div>
+          <div class="row team-score">
+            <div class="col-md-5" ng-class="{'reset-padding': v.Team1.length > 4 || $index % 4 == 3}">
+              <img class="center-block hover-effect" ng-src="{{ v.Flag1 }}" ng-click="$parent.chooseTeamInfo = v.Team1" />
+              <a ng-href="{{ 'score.html?' + (v.Team1 | encodeUrlFilter) }}" ng-bind="v.Team1"></a>
+            </div>
+            <div class="col-md-2 vs-scope">
+              <span ng-bind="v.Score1 | scopeFilter"></span>
+              <span> vs </span>
+              <span ng-bind="v.Score2 | scopeFilter"></span>
+            </div>
+            <div class="col-md-5" ng-class="{'reset-padding': v.Team2.length > 4 || $index % 4 == 3}">
+              <img class="center-block hover-effect" ng-src="{{ v.Flag2 }}" ng-click="$parent.chooseTeamInfo = v.Team2" />
+              <a ng-href="{{ 'score.html?' + (v.Team2 | encodeUrlFilter) }}" ng-bind="v.Team2"></a>
+            </div>
+          </div>
+          <div class="row news-link">
+            <a ng-href="{{ v.VideoLiveUrl || v.LiveUrl }}" title="主播：{{ v.Liver }}" target="_blank">视频直播</a>
+            <a ng-href="{{ v.VideoUrl }}" class="bit-margin" target="_blank" ng-if="v.VideoUrl">视频集锦</a>
+            <span ng-if="!v.VideoUrl">视频集锦</span>
+            <a ng-href="{{ v.ImgUrl }}" target="_blank" ng-if="v.ImgUrl">高清图集</a>
+            <span ng-if="!v.ImgUrl">高清图集</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="matchDate">
+      <div class="col-xs-1">
+        <span class="order-label hover-effect" data-toggle="tooltip" data-placement="top" title="全部{{uniqueDate.length}}天" ng-click="chooseTeamInfo = ''">日期</span>
+      </div>
+      <ul class="col-xs-11 list-unstyled list-inline date-list">
+        <li ng-repeat="v in specialDate">
+          <span class="label hover-effect" ng-class="{true: 'label-primary', false: 'label-success'}[$even]" ng-bind="v.name + (v.date | date: 'dd号')" ng-click="$parent.chooseTeamInfo = (v.date | date: 'yyyy-MM-dd')" data-toggle="tooltip" data-placement="top" title="{{v.name + '共有' + (match2015Data | filter: (v.date | date: 'yyyy-MM-dd')).length + '次赛事'}}"></span>
+        </li>
+        <li ng-repeat="v in uniqueDate">
+          <span class="label hover-effect" ng-class="{true: 'label-primary', false: 'label-success'}[$even]" ng-bind="v | date: 'MM月dd日'" ng-click="$parent.chooseTeamInfo = v" data-toggle="tooltip" data-placement="top" title="{{v + '共有' + (match2015Data | filter: v).length + '次赛事'}}"></span>
+        </li>
+      </ul>
+    </div>
+    <div class="row csl-list-container" id="cslList">
+      <table class="table table-bordered table-hover">
+        <tr>
+          <th class="text-center">场次</th>
+          <th class="text-center">轮次</th>
+          <th class="text-center">主场</th>
+          <th class="text-center">客场</th>
+          <th class="text-center">城市</th>
+          <th class="text-center">球场</th>
+          <th class="text-center">日期</th>
+          <th class="text-center">星期</th>
+          <th class="text-center">时间</th>
+        </tr>
+        <tr class="text-center" ng-repeat="v in match2015Data | filter: chooseTeamInfo">
+          <!--| filter: {Round: chooseMatchRound}: (chooseMatchRound ? true : false)-->
+          <td ng-bind="$index + 1"></td>
+          <td class="hover-effect" ng-bind="v.Round" ng-click="chooseMatchRound(v.Round)"></td>
+          <td class="hover-effect" ng-bind="v.Team1" ng-class="{'choose-area': v.Team1 == chooseTeamInfo}" ng-click="$parent.chooseTeamInfo = v.Team1"></td>
+          <td class="hover-effect" ng-bind="v.Team2" ng-class="{'choose-area': v.Team2 == chooseTeamInfo}" ng-click="$parent.chooseTeamInfo = v.Team2"></td>
+          <td class="hover-effect" ng-bind="v.MatchCity" ng-class="{'choose-area': v.MatchCity == chooseTeamInfo || v.MatchCity == chooseTeamInfo.MatchCity}" ng-click="$parent.chooseTeamInfo = {MatchCity: v.MatchCity}"></td>
+          <td class="hover-effect" ng-bind="v.Situation" ng-class="{'choose-area': v.Situation == chooseTeamInfo}" ng-click="$parent.chooseTeamInfo = v.Situation"></td>
+          <td class="hover-effect" ng-bind="v.date" ng-class="{'choose-area': v.date == chooseTeamInfo}" ng-click="$parent.chooseTeamInfo = v.date"></td>
+          <td ng-bind="getWeekName(v.date)"></td>
+          <td class="hover-effect" ng-bind="v.time" ng-class="{'choose-area': v.time == chooseTeamInfo}" ng-click="$parent.chooseTeamInfo = v.time"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="row" id="matchTeam">
+      <div class="col-xs-1">
+        <span class="order-label hover-effect" data-toggle="tooltip" data-placement="top" title="{{uniqueTeam.length}}支球队积分榜" ng-click="jumpToUrl('score.html')">球队</span>
+      </div>
+      <ul class="col-xs-11 list-unstyled list-inline team-list">
+        <li ng-repeat="v in uniqueTeam">
+          <span class="label hover-effect" ng-class="{true: 'label-primary', false: 'label-success'}[($even && $index < 7) || ($odd && $index > 7)]" ng-bind="v" ng-click="$parent.chooseTeamInfo = v" data-toggle="tooltip" data-placement="top" title="{{v + '共有' + (match2015Data | filter: v).length + '次赛事'}}"></span>
+        </li>
+      </ul>
+    </div>
+    <div class="row" id="matchCity">
+      <div class="col-xs-1">
+        <span class="order-label" data-toggle="tooltip" data-placement="top" title="{{uniqueMatchCity.length}}个城市">城市</span>
+      </div>
+      <ul class="col-xs-11 list-unstyled list-inline team-list">
+        <li ng-repeat="v in uniqueMatchCity">
+          <span class="label hover-effect" ng-class="{true: 'label-primary', false: 'label-success'}[($even && $index < 7) || ($odd && $index > 7)]" ng-bind="v" ng-click="$parent.chooseTeamInfo = {MatchCity: v}" data-toggle="tooltip" data-placement="top" title="{{v + '共有' + (match2015Data | filter: {MatchCity: v}).length + '次赛事'}}"></span>
+        </li>
+      </ul>
+    </div>
+    <div class="row" id="matchSituation">
+      <div class="col-xs-1">
+        <span class="order-label" data-toggle="tooltip" data-placement="top" title="{{uniqueSituation.length+1}}个球场">球场</span>
+      </div>
+      <ul class="col-xs-11 list-unstyled list-inline team-list">
+        <li ng-repeat="v in uniqueSituation">
+          <span class="label hover-effect" ng-class="{true: 'label-primary', false: 'label-success'}[($even && $index < 7) || ($odd && $index > 7)]" ng-bind="v" ng-click="$parent.chooseTeamInfo = v" data-toggle="tooltip" data-placement="top" title="{{v + '共有' + (match2015Data | filter: v).length + '次赛事'}}"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="csl-data.js"></script>
+  <script type="text/javascript" src="../js/jquery/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../js/angular/angular.1.4.3.min.js"></script>
+  <script type="text/javascript">
+    var _PAGE = {
+      defaultMatchTime: function() {
+        return 27;
+      },
+      getWeekName: function(date) {
+        date = typeof date == 'string' ? new Date(date) : date;
+        var day = date.getDay();
+        var week = '日一二三四五六'.split('');
+        var result = '周' + week[day];
+        return result;
+      },
+      calcNewDate: function(interval) {
+        var date = new Date();
+        date.setDate(date.getDate() + interval);
+        return date;
+      },
+      uniqueValueInArray: function(arr, obj) {
+        var n = {}, r = [];
+        for (var i = 0; i < arr.length; i++) {
+          var val = obj ? arr[i][obj] : arr[i];
+          if (!n[val]) {
+            n[val] = true;
+            r.push(val);
+          }
+        }
+        return r;
+      }
+    };
+
+    $(function() { $('[data-toggle="tooltip"]').tooltip(); });
+
+    var app = angular.module('footballApp', []);
+    app.controller('MainCtrl', ['$scope', '$http', function($scope, $http) {
+      var teamParam = location.search;
+
+      $scope.getNumber = function(num) {
+        return new Array(num);
+      };
+
+      $scope.chooseMatchRound = function(round) {
+        $scope.chooseTeamInfo = function(item) {
+          return round === item.Round;
+        };
+      };
+
+      $scope.getMatchList = function(round, isFirst, year) {
+        year = year || 2015;
+        $scope.curMatchTime = round;
+        var url = 'http://each.sinaapp.com/wechat/url2text.php?http://platform.sina.com.cn/sports_all/client_api?_sport_t_=livecast&_sport_a_=matchesByType&app_key=3571367214&type=213&season=' + year + '&rnd=' + round;
+        $http.get(url).then(function(res) {
+          $scope.cslMatchList = res.data.result.data;
+
+          if (!teamParam || !isFirst) $scope.chooseMatchRound(round);
+        });
+      };
+      $scope.curMatchTime = _PAGE.defaultMatchTime();
+      $scope.getMatchList($scope.curMatchTime, true);
+
+      $scope.getWeekName = function(date) {
+        return _PAGE.getWeekName(date);
+      };
+
+      $scope.specialDate = [
+        { name: '昨天', date: _PAGE.calcNewDate(-1) },
+        { name: '今天', date: _PAGE.calcNewDate(0) },
+        { name: '明天', date: _PAGE.calcNewDate(1) },
+        { name: '后天', date: _PAGE.calcNewDate(2) }
+      ];
+      $scope.uniqueDate = _PAGE.uniqueValueInArray(match2015Data, 'date');
+      $scope.uniqueTeam = _PAGE.uniqueValueInArray(match2015Data, 'Team1');
+      $scope.uniqueSituation = _PAGE.uniqueValueInArray(match2015Data, 'Situation');
+      $scope.uniqueMatchCity = _PAGE.uniqueValueInArray(match2015Data, 'MatchCity');
+      $scope.match2015Data = match2015Data;
+      if (teamParam) {
+        teamParam = decodeURIComponent(teamParam.split('?')[1]);
+        // window.scrollTo(0, 1000); // document.querySelector('#cslList').offsetTop
+      }
+      $scope.chooseTeamInfo = teamParam;
+
+      $scope.jumpToUrl = function(url) {
+        window.location.href = url;
+      };
+
+    }]);
+
+    app.filter('scopeFilter', [function() {
+      return function(score) {
+        return score || '-';
+      };
+    }]);
+
+    app.filter('encodeUrlFilter', [function() {
+      return function(url) {
+        return encodeURIComponent(url);
+      };
+    }]);
+  </script>
+</body>
+</html>

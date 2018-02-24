@@ -6,6 +6,7 @@
 
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
   <link rel="stylesheet" type="text/css" href="css/pygment_trac.css" media="screen">
+  <script src="./js/echarts/echarts.min.js"></script>
 
   <title>乔乐个人简历 On Github</title>
 </head>
@@ -38,13 +39,7 @@ $ git fetch origin
 $ git checkout gh-pages
 </code></pre>
 
-      <p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-      <h3>
-        <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates
-      </h3>
-
-      <p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+      <p id="pieChart" class="chart"></p>
 
       <h3>
         <a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?
@@ -53,6 +48,81 @@ $ git checkout gh-pages
       <p>If you prefer to not use the automatic generator, push a branch named
         <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.
       </p>
+      <p id="lineChart" class="chart"></p>
+
+      <h3>
+        <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates
+      </h3>
+
+      <p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+      <ul id='timeline'>
+        <li class='work'>
+          <input class='radio' id='work5' name='works' type='radio' checked>
+          <div class="relative">
+            <label for='work5'>Lorem ipsum dolor sit amet</label>
+            <span class='date'>12 May 2013</span>
+            <span class='circle'></span>
+          </div>
+          <div class='content'>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+            </p>
+          </div>
+        </li>
+        <li class='work'>
+          <input class='radio' id='work4' name='works' type='radio'>
+          <div class="relative">
+            <label for='work4'>Lorem ipsum dolor sit amet</label>
+            <span class='date'>11 May 2013</span>
+            <span class='circle'></span>
+          </div>
+          <div class='content'>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+            </p>
+          </div>
+        </li>
+        <li class='work'>
+          <input class='radio' id='work3' name='works' type='radio'>
+          <div class="relative">
+            <label for='work3'>Lorem ipsum dolor sit amet</label>
+            <span class='date'>10 May 2013</span>
+            <span class='circle'></span>
+          </div>
+          <div class='content'>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+            </p>
+          </div>
+        </li>
+        <li class='work'>
+          <input class='radio' id='work2' name='works' type='radio'>
+          <div class="relative">
+            <label for='work2'>Lorem ipsum dolor sit amet</label>
+            <span class='date'>09 May 2013</span>
+            <span class='circle'></span>
+          </div>
+          <div class='content'>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+            </p>
+          </div>
+        </li>
+        <li class='work'>
+          <input class='radio' id='work1' name='works' type='radio'>
+          <div class="relative">
+            <label for='work1'>Lorem ipsum dolor sit amet</label>
+            <span class='date'>08 May 2013</span>
+            <span class='circle'></span>
+          </div>
+          <div class='content'>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio ea necessitatibus quo velit natus cupiditate qui alias possimus ab praesentium nostrum quidem obcaecati nesciunt! Molestiae officiis voluptate excepturi rem veritatis eum aliquam qui laborum non ipsam ullam tempore reprehenderit illum eligendi cumque mollitia temporibus! Natus dicta qui est optio rerum.
+            </p>
+          </div>
+        </li>
+      </ul>
 
       <h3>
         <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors
@@ -62,6 +132,8 @@ $ git checkout gh-pages
         <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting
         <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.
       </p>
+
+      <p id="radarChart" class="chart"></p>
 
       <h3>
         <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact
@@ -84,6 +156,147 @@ $ git checkout gh-pages
     } catch (err) {
     }
   </script>
+  <script type="text/javascript">
+    function $(id) {return document.getElementById(id)}
+    var lineChart = echarts.init($('lineChart'), 'dark');
+    lineChart.setOption({
+      title: {
+        text: '个人关键字',
+        left: 'center'
+      },
+      tooltip: {},
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category'
+        // inverse: true,
+      },
+      yAxis: {},
+      series: {
+        type: 'bar',
+        name: '出现次数',
+        legendHoverLink: true,
+        label: {
+          normal: {
+            show: true,
+            position: 'top',
+            distance: 12
+          }
+        },
+        markPoint: {
+          symbol: 'pin',
+          silent: true,
+          data: [
+            {type: 'max', name: '最大值'},
+            {type: 'min', name: '最小值'}
+          ]
+        }
+      }
+    });
+    lineChart.setOption({
+      dataset: {
+        dimensions: ['name', 'value'],
+        source: [
+          {name: '架构', value: 90},
+          {name: '质量', value: 99},
+          {name: '高效', value: 98},
+          {name: '推进', value: 85}
+        ]
+      }
+    });
 
+    var pieChart = echarts.init($('pieChart'));
+    pieChart.setOption({
+      backgroundColor: '#2c343c',
+      title: {
+        text: 'Customized Pie',
+        left: 'center',
+        top: 20,
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      series : [
+        {
+          name: '访问来源',
+          type: 'pie',
+          radius: '55%',
+          roseType: 'angle',
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 200,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
+
+          animationType: 'scale',
+          animationEasing: 'elasticOut',
+          animationDelay: function (idx) {
+            return Math.random() * 300;
+          }
+        }
+      ]
+    });
+    pieChart.setOption({
+      series: [
+        {
+          data: [
+            {value:235, name:'视频广告'},
+            {value:274, name:'联盟广告'},
+            {value:310, name:'邮件营销'},
+            {value:335, name:'直接访问'},
+            {value:400, name:'搜索引擎'}
+          ]
+        }
+      ]
+    });
+
+    var radarChart = echarts.init($('radarChart'), 'dark');
+    radarChart.setOption({
+      title: {
+        text: '个人综合技术雷达图',
+        left: 'center'
+      },
+      tooltip: {},
+      radar: {
+        // shape: 'circle',
+        name: {
+          textStyle: {
+            color: '#fff',
+            backgroundColor: '#999',
+            borderRadius: 3,
+            padding: [3, 5]
+          }
+        },
+        indicator: [
+          { name: '销售（sales）', max: 6500},
+          { name: '管理（Administration）', max: 16000},
+          { name: '信息技术（Information Techology）', max: 30000},
+          { name: '客服（Customer Support）', max: 38000},
+          { name: '研发（Development）', max: 52000},
+          { name: '市场（Marketing）', max: 25000}
+        ]
+      },
+      series: [{
+        name: '预算 vs 开销（Budget vs spending）',
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        data : [
+          {
+            value : [4300, 10000, 28000, 35000, 50000, 19000],
+            name : '预算分配（Allocated Budget）'
+          }
+        ]
+      }]
+    });
+  </script>
 </body>
 </html>

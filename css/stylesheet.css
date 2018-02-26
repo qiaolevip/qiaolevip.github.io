@@ -238,6 +238,11 @@ a {
 
 .chart {
   height: 450px;
+  padding-top: 25px;
+}
+
+.chart.padding {
+  padding-top: 25px;
 }
 
 #timeline {

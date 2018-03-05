@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
+  <meta charset='utf-8'>e
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-  <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="css/pygment_trac.css" media="screen">
-  <script src="./js/echarts/echarts.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="../../css/pygment_trac.css" media="screen">
+  <script src="../echarts/echarts.min.js"></script>
 
   <title>Joe's CV On Github</title>
 </head>
@@ -159,9 +159,28 @@ $ git checkout gh-pages
   </script>
   <script type="text/javascript">
     function $(id) {return document.getElementById(id)}
+
+    var waterMarkText = 'qiaolevip';
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = canvas.height = 150;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.globalAlpha = 0.08;
+    ctx.font = '20px Microsoft Yahei';
+    ctx.translate(50, 50);
+    ctx.rotate(-Math.PI / 4);
+//    ctx.fillText(waterMarkText, 0, 0);
+    ctx.strokeStyle = '#fff';
+    ctx.strokeText(waterMarkText, 10, 50);
+
     var pieChart = echarts.init($('pieChart'));
     pieChart.setOption({
-      backgroundColor: '#333333',
+      backgroundColor: {
+        type: 'pattern',
+        image: canvas,
+        repeat: 'repeat'
+      },
       title: {
         text: '个人特色',
         left: 'center',

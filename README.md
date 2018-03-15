@@ -10,9 +10,9 @@ This is my qiaole personal homepage on github.
 
 > ## Online blog & Technic Share ##
 > > ###<http://qiaolevip.iteye.com>###
-> > ###技术分享：[angular在线教程](http://each.sinaapp.com/angular)###
-> > ###百度搜索：[angular在线教程](https://www.baidu.com/s?ie=UTF-8&wd=angular%E5%9C%A8%E7%BA%BF%E6%95%99%E7%A8%8B)###
-> > ###谷歌搜索：[angular在线教程](https://gg.wen.lu/#newwindow=1&q=angular%E5%9C%A8%E7%BA%BF%E6%95%99%E7%A8%8B)###
+> > ###鎶�鏈垎浜細[angular鍦ㄧ嚎鏁欑▼](http://each.sinaapp.com/angular)###
+> > ###鐧惧害鎼滅储锛歔angular鍦ㄧ嚎鏁欑▼](https://www.baidu.com/s?ie=UTF-8&wd=angular%E5%9C%A8%E7%BA%BF%E6%95%99%E7%A8%8B)###
+> > ###璋锋瓕鎼滅储锛歔angular鍦ㄧ嚎鏁欑▼](https://gg.wen.lu/#newwindow=1&q=angular%E5%9C%A8%E7%BA%BF%E6%95%99%E7%A8%8B)###
 >
 
 ## Technic Do I Have ##
@@ -22,6 +22,7 @@ This is my qiaole personal homepage on github.
  `css`      |   Good       |    5 Years
  `html`     |   Good       |    5 Years
  `jQuery`   |   Good       |    4 Years
+ `React`    |   Good       |    3 Years
  `AngularJs`|   Good       |    2 Years
  `Less`     |   Good       |    2 Years
  `NodeJs`   |   Good       |    2 Years

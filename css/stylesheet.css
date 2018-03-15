@@ -7,7 +7,7 @@ body {
   line-height: 1.5;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 }
-
+[v-cloak]{display: none}
 /* General & 'Reset' Stuff */
 
 .container {
@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 li {
-  line-height: 1.4 ;
+  line-height: 1.4;
 }
 
 /* Header, <header>
@@ -46,13 +46,13 @@ header {
 header h1 {
   font-size: 30px;
   line-height: 1.5;
-  margin: 0 0 0 -40px;
+  margin: 0;
   font-weight: bold;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #b5e853;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-               0 0 5px rgba(181, 232, 83, 0.1),
-               0 0 10px rgba(181, 232, 83, 0.1);
+  0 0 5px rgba(181, 232, 83, 0.1),
+  0 0 10px rgba(181, 232, 83, 0.1);
   letter-spacing: -1px;
   -webkit-font-smoothing: antialiased;
 }
@@ -65,7 +65,7 @@ header h1:before {
 header h2 {
   font-size: 18px;
   font-weight: 300;
-  color: #666;
+  color: #999;
 }
 
 #downloads .btn {
@@ -81,6 +81,7 @@ header h2 {
   width: 100%;
   -webkit-font-smoothing: antialiased;
 }
+
 section img {
   max-width: 100%
 }
@@ -91,8 +92,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #b5e853;
   letter-spacing: -0.03em;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-               0 0 5px rgba(181, 232, 83, 0.1),
-               0 0 10px rgba(181, 232, 83, 0.1);
+  0 0 5px rgba(181, 232, 83, 0.1),
+  0 0 10px rgba(181, 232, 83, 0.1);
 }
 
 #main_content h1 {
@@ -105,6 +106,12 @@ h1, h2, h3, h4, h5, h6 {
 
 #main_content h3 {
   font-size: 18px;
+  padding-top: 20px;
+}
+
+#main_content h3 a {
+  color: #b5e853;
+  text-decoration: none;
 }
 
 #main_content h4 {
@@ -224,16 +231,16 @@ a {
 /* Clearfix */
 
 .cf:before, .cf:after {
-  content:"";
-  display:table;
+  content: "";
+  display: table;
 }
 
 .cf:after {
-  clear:both;
+  clear: both;
 }
 
 .cf {
-  zoom:1;
+  zoom: 1;
 }
 
 .chart {
@@ -245,6 +252,15 @@ a {
   padding-top: 25px;
 }
 
+.skill-box {
+  -webkit-transition: all 0.6s ease-in-out 0s;
+  transition: all 0.6s ease-in-out 0s;
+}
+
+.skill-box h3, .skill-box h3 ~ p {
+  text-align: center;
+}
+
 #timeline {
   font-family: "Noto Sans", sans-serif;
   color: #eee9dc;
@@ -253,10 +269,12 @@ a {
   padding-left: 30px;
   border-left: 8px solid #eee9dc;
 }
+
 #timeline li {
   margin: 40px 0;
   position: relative;
 }
+
 #timeline p {
   margin: 0 0 15px;
 }
@@ -292,6 +310,7 @@ a {
   border-radius: 0.5em;
   position: relative;
 }
+
 .content:before, .content:after {
   content: "";
   width: 0;
@@ -301,18 +320,21 @@ a {
   pointer-events: none;
   right: 100%;
 }
+
 .content:before {
   border-right-color: inherit;
   border-width: 20px;
   top: 50%;
   margin-top: -20px;
 }
+
 .content:after {
   border-right-color: #151515;
   border-width: 17px;
   top: 50%;
   margin-top: -17px;
 }
+
 .content p {
   max-height: 0;
   color: transparent;
@@ -339,9 +361,11 @@ label {
   cursor: auto;
   transform: translateX(42px);
 }
+
 .radio:checked + .relative .circle {
   background: #f98262;
 }
+
 .radio:checked ~ .content {
   max-height: 180px;
   border-color: #eee9dc;
@@ -349,8 +373,19 @@ label {
   transform: translateX(20px);
   transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
 }
+
 .radio:checked ~ .content p {
   max-height: 200px;
   color: #eee9dc;
   transition: color 0.3s linear 0.3s;
+}
+
+@media screen and (max-device-width: 480px) {
+  .container {
+    max-width: 98vw;
+  }
+
+  #downloads .btn {
+    font-size: 4vw;
+  }
 }
